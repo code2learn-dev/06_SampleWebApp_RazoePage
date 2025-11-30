@@ -1,0 +1,20 @@
+﻿@page
+@model _06_WebApp_RazoePage.RazorPage.Pages.Genre.AddModel
+@{
+	ViewBag.Title = "ایجاد دسته بندی جدید";
+	ViewBag.CssTitle = "success";
+	LinkViewModel linkViewModel = new LinkViewModel()
+	{
+		ButtonCaption = "ذخیره",
+		Caption = "بازگشت",
+		PageName = "Index"
+	};
+}
+<form method="post">
+	<div class="mt-2">
+		<label asp-for="CrudEntityViewModel.Title"></label>
+		<input asp-for="CrudEntityViewModel.Title" class="form-control" />
+		<span class="text-danger" asp-validation-for="CrudEntityViewModel.Title"></span>
+	</div>
+	<partial name="LinkView" model="@linkViewModel" />
+</form>

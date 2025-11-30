@@ -1,0 +1,132 @@
+﻿@page
+@model _06_WebApp_RazoePage.RazorPage.Pages.Tickets.AddModel
+@{
+	ViewBag.Title = "ثبت بلیت جدید";
+	ViewBag.CssTiele = "success";
+	LinkViewModel linkViewModel = new LinkViewModel()
+	{
+		Caption = "لیست بلیت ها",
+		PageName = "Index"
+	};
+}
+@section styles {
+	<link href="~/css/jalalidatepicker.min.css" rel="stylesheet" />
+	<style>
+		.main-parent {
+			width: 100%;
+			height: auto;
+			min-height: 14rem;
+			display: block;
+			position: relative;
+			z-index: 2;
+		}
+
+		.loading-container {
+			width: 100%;
+			height: 100%; 
+			min-height: 14rem;
+			background-color: #ddd;
+			border-radius: .4rem;
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			align-items: center;
+			position: absolute;
+			right: 0;
+			top: 0;
+			z-index: 2;
+		}
+
+		.loading-circle {
+			width: 2rem;
+			height: 2rem;
+			background-color: #333;
+			border-radius: 50%;
+			animation: loadingFade 1s infinite ease-in;
+		}
+
+		:is(#table-result, #customer-table-result) {
+			width: stretch;
+			margin: 1.4rem;
+			display: none;
+		}
+
+		@@keyframes loadingFade {
+			0% {
+				width: 2rem;
+				height: 2rem;
+				opacity: 0.0;
+			}
+
+			10% {
+				opacity: 1.0;
+			}
+
+			50% {
+				width: 3rem;
+				height: 3rem;
+				opacity: 0.5;
+			}
+
+			100% {
+				width: 5rem;
+				height: 5rem;
+				opacity: 0.0;
+			}
+		}
+
+		.selected-movie{
+			width: stretch;
+			height: auto;
+			margin: 1rem;
+			padding: 1rem;
+			border-radius: .4rem;
+			box-shadow: 0 0 2.4rem -.6rem #ccc;
+			display: flex;
+			border: 1px solid #999;
+		}
+
+			.selected-movie img {
+				width: 8rem;
+				height: 9rem;
+				border-radius: .3rem;
+				object-fit: cover;
+				margin-left: 1rem;
+			}
+
+		.movie-caption {
+			width: 100%;
+			display: flex;
+			flex-direction: column;
+		}
+
+		.register-form {
+			margin: 1rem;
+			padding: 1rem;
+			box-shadow: 0 0 2.4rem -.6rem #ccc;
+			border: 1px solid #999;
+			border-radius: .4rem;
+		}
+
+		#ragister-form {
+			display: none;
+			margin: 2.4rem !important;
+		}
+
+		#next-step-btn {
+			display: none;
+		}
+	</style>
+}
+<div class="main-parent">
+	<div class="loading-container">
+		<div class="loading-circle"></div>
+	</div>
+	<section id="add-form">
+	</section>
+</div>
+<partial name="LinkView" model="@linkViewModel" />
+@section scripts {
+	<script src="~/scripts/jalalidatepicker.min.js"></script>
+	<script src="~/scripts/ticket.script.js"></script>
+}

@@ -1,0 +1,49 @@
+﻿@page "/"
+@model _06_WebApp_RazoePage.RazorPage.Pages.Default.IndexModel
+@{
+	ViewBag.Title = "صفحه اصلی";
+	ViewBag.CssTitle = "info";
+	string movieImage = string.Empty;
+}
+@section styles {
+	<link href="~/css/movie.style.css" rel="stylesheet" />
+}
+<main class="row">
+	<aside class="col-md-9">
+		<article>
+			@if (Model.MovieThumbnailItemList is not null &&
+						 Model.MovieThumbnailItemList.Any())
+			{
+				foreach (var movie in Model.MovieThumbnailItemList)
+				{
+					if (!string.IsNullOrEmpty(movie.ImageName))
+					{
+						movieImage = $"{Model.MovieCoverImageUri}/images/movies/{movie.ImageName}";
+					}
+					<section class="card mt-3 mb-4">
+						<div class="card-body row">
+							<aside class="col-md-3">
+								<img class="img-thumbnail rounded rounded-1" src="@movieImage" alt="@movie.Title" />
+							</aside>
+							<aside class="col-md-9">
+								<h6 class="alert alert-info">@movie.Title</h6>
+								<p>@movie.Description</p>
+								<p class="alert alert-warning d-inline-block p-2 m-2">@movie.Score</p>
+								<p class="alert alert-warning d-inline-block p-2 m-2">@movie.GenreTitle</p>
+								<div class="text-start">
+									<a class="btn btn-success" asp-page="/Movies/display" asp-route-id="@movie.Id">
+										<i class="bi bi-play-circle"></i>
+										مشاهده فیلم
+									</a>
+								</div>
+							</aside>
+						</div>
+					</section>
+				}
+			}
+		</article>
+	</aside>
+	<aside class="col-md-3">
+		@await Component.InvokeAsync("MovieSidebar")
+	</aside>
+</main>

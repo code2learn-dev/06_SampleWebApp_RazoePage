@@ -1,0 +1,66 @@
+﻿@page
+@model _06_WebApp_RazoePage.RazorPage.Pages.Customer.AddModel
+@{
+	ViewBag.Title = "ایجاد مشتری جدید";
+	ViewBag.CssTitle = "suucess";
+	LinkViewModel linkViewModel = new()
+	{
+		Caption = "لیست مشتریان",
+		PageName = "Index",
+		ButtonCaption = "ذخیره",
+		ButtonCssClass = "success"
+	};
+}
+@section styles {
+	<link href="~/css/customer.style.css" rel="stylesheet" />
+}
+<form method="post" enctype="multipart/form-data">
+	<section class="row">
+		<aside class="col-md-4">
+			<article class="card customer-image-container">
+				<div class="customer-image-section">
+					<img id="customer-image" src="" class="img-thumbnail" />
+				</div>
+				<div class="text-center customer-image-buttons">
+					<a class="btn btn-success btn-sm" id="select-image">
+						<i class="bi bi-arrow-right-circle"></i>
+						انتخاب تصویر
+					</a>
+					<a class="btn btn-danger btn-sm" id="clear-image">
+						<i class="bi bi-x-square"></i>
+						حذف تصویر
+					</a>
+					<input type="file" asp-for="CrudEntityViewModel.File" id="input-file" />
+				</div>
+			</article>
+			<p class="alert alert-danger mt-1 p-2 text-center">حجم فایل انتخابی حداکثر 10 مگابایت</p>
+			<p class="alert alert-danger mt-1 p-2 text-center">تنها فرمت های jpg  و png مجاز است</p>
+		</aside>
+		<aside class="col-md-8">
+			<div class="mt-2">
+				<label asp-for="CrudEntityViewModel.FirstName"></label>
+				<input asp-for="CrudEntityViewModel.FirstName" class="form-control" />
+				<span class="text-danger" asp-validation-for="CrudEntityViewModel.FirstName"></span>
+			</div>
+			<div class="mt-2">
+				<label asp-for="CrudEntityViewModel.LastName"></label>
+				<input asp-for="CrudEntityViewModel.LastName" class="form-control" />
+				<span class="text-danger" asp-validation-for="CrudEntityViewModel.LastName"></span>
+			</div>
+			<div class="mt-2">
+				<label asp-for="CrudEntityViewModel.NationalCode"></label>
+				<input asp-for="CrudEntityViewModel.NationalCode" class="form-control" />
+				<span class="text-danger" asp-validation-for="CrudEntityViewModel.NationalCode"></span>
+			</div>
+			<div class="mt-2">
+				<label asp-for="CrudEntityViewModel.PhoneNumber"></label>
+				<input asp-for="CrudEntityViewModel.PhoneNumber" class="form-control" />
+				<span class="text-danger" asp-validation-for="CrudEntityViewModel.PhoneNumber"></span>
+			</div>
+		</aside>
+	</section>
+	<partial name="LinkView" model="@linkViewModel" />
+</form>
+@section scripts {
+	<script src="~/scripts/customer.script.js"></script>
+}

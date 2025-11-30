@@ -1,0 +1,99 @@
+﻿@page "{id?}"
+@model _06_WebApp_RazoePage.RazorPage.Pages.Movies.EditModel
+@{
+	ViewBag.Title = "ویرایش فیلم";
+	ViewBag.CssTitle = "success";
+	LinkViewModel linkViewModel = new()
+	{
+		ButtonCaption = "ویرایش",
+		Caption = "لیست فیلم ها",
+		PageName = "Index"
+	};
+	string imagePath = string.Empty;
+	if (TempData.ContainsKey("Image"))
+	{
+		imagePath = TempData.Peek("Image")?.ToString() ?? string.Empty;
+	}
+}
+@section styles {
+	<link href="~/css/jalalidatepicker.min.css" rel="stylesheet" />
+	<link href="~/css/movie.style.css" rel="stylesheet" />
+}
+<form method="post" enctype="multipart/form-data">
+	<input asp-for="CrudEntityViewModel.Id" type="hidden" />
+	<input asp-for="CrudEntityViewModel.ImageName" type="hidden" id="current-image" />
+	<section class="row">
+		<aside class="col-md-4">
+			<article class="card movie-image-container">
+				<div class="movie-image-section">
+					<img id="movie-image" src="@imagePath" class="img-thumbnail" />
+				</div>
+				<div class="text-center movie-image-buttons">
+					<a class="btn btn-success btn-sm" id="select-image">
+						<i class="bi bi-arrow-right-circle"></i>
+						انتخاب تصویر جدید
+					</a>
+					<a class="btn btn-danger btn-sm" id="clear-image">
+						<i class="bi bi-x-square"></i>
+						تصویر اولیه
+					</a>
+					<input type="file" asp-for="CrudEntityViewModel.File" id="input-file" />
+				</div>
+			</article>
+			<p class="alert alert-danger mt-1 p-2 text-center">حجم فایلی انتخابی 5 مگابایت باشد</p>
+			<p class="alert alert-danger mt-1 p-2 text-center">تنها فرمت های jpg  و png مجاز است</p>
+		</aside>
+		<aside class="col-md-8">
+			<div class="mt-3">
+				<label asp-for="CrudEntityViewModel.GenreId"></label>
+				<select asp-for="CrudEntityViewModel.GenreId" asp-items="@Model.CrudEntityViewModel.GenreSelectList" class="form-select">
+					<option value="" selected="selected" disabled="disabled">انتخاب دسته فیلم</option>
+				</select>
+				<span asp-validation-for="CrudEntityViewModel.GenreId" class="text-danger"></span>
+			</div>
+			<div class="mt-3">
+				<label asp-for="CrudEntityViewModel.Title"></label>
+				<input asp-for="CrudEntityViewModel.Title" class="form-control" />
+				<span asp-validation-for="CrudEntityViewModel.Title" class="text-danger"></span>
+			</div>
+			<div class="mt-3">
+				<label asp-for="CrudEntityViewModel.ScoreString"></label>
+				<input asp-for="CrudEntityViewModel.ScoreString" class="form-control" />
+				<span asp-validation-for="CrudEntityViewModel.ScoreString" class="text-danger"></span>
+			</div>
+			<div class="mt-3">
+				<label asp-for="CrudEntityViewModel.Description"></label>
+				<textarea asp-for="CrudEntityViewModel.Description" class="form-control" rows="5"></textarea>
+				<span asp-validation-for="CrudEntityViewModel.Description" class="text-danger"></span>
+			</div>
+			<div class="mt-3">
+				<label asp-for="CrudEntityViewModel.StartDateViewModel"></label>
+				<input asp-for="CrudEntityViewModel.StartDateViewModel" class="form-control" data-jdp data-jdp-only-date readonly="readonly" />
+				<span asp-validation-for="CrudEntityViewModel.StartDateViewModel" class="text-danger"></span>
+			</div>
+			<div class="mt-3">
+				<label asp-for="CrudEntityViewModel.EndDateViewModel"></label>
+				<input asp-for="CrudEntityViewModel.EndDateViewModel" class="form-control" data-jdp data-jdp-only-date readonly="readonly" />
+				<span asp-validation-for="CrudEntityViewModel.EndDateViewModel" class="text-danger"></span>
+			</div>
+			<div class="mt-3 position-relative">
+				<label asp-for="CrudEntityViewModel.TagsList"></label>
+				<input name="InputTagsList" class="form-control" id="input-tag" autocomplete="off" />
+				<div class="selected-tags-list"></div>
+				<div class="suggestion-tags-list"></div>
+			</div>
+			<partial name="LinkView" model="@linkViewModel" />
+		</aside>
+	</section>
+</form>
+@section scripts {
+	<script src="~/scripts/jalalidatepicker.min.js"></script>
+	<script src="~/scripts/movie.script.js"></script>
+	<script>
+		jalaliDatepicker.startWatch({
+			minDate: "attr",
+			maxDate: "attr",
+			time: true,
+		});
+	</script>
+}

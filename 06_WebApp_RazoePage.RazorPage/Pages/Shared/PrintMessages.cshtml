@@ -1,0 +1,12 @@
+﻿@if (Message.Messages is not null && Message.Messages.Any())
+{
+	<div id="print-messages" class="mt-2 mb-2">
+		@foreach (var message in Message.Messages)
+		{
+			<div class="m-2">
+				@Html.Raw(message)
+			</div>
+		}
+	</div>
+	Message.ClearMessages();
+}

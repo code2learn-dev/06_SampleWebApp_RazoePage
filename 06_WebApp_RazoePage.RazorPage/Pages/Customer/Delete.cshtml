@@ -1,0 +1,64 @@
+﻿@page "{id?}"
+@model _06_WebApp_RazoePage.RazorPage.Pages.Customer.DeleteModel
+@{
+	ViewBag.Title = "حذف مشتری";
+	ViewBag.CssTitle = "danger";
+	LinkViewModel linkViewModel = new()
+	{
+		Caption = "لیست مشتریان",
+		PageName = "Index",
+		ButtonCaption = "حذف",
+		ButtonCssClass = "danger"
+	};
+
+	string profileImage = string.Empty;
+	if (TempData.ContainsKey("ProfileImage"))
+		profileImage = TempData["ProfileImage"]?.ToString() ?? string.Empty;
+}
+@section styles {
+	<link href="~/css/customer.style.css" rel="stylesheet" />
+}
+<form method="post" enctype="multipart/form-data">
+	<input type="hidden" value="@profileImage" id="profile-image" />
+	<input type="hidden" asp-for="DeleteEntityViewModel.Id" />
+	<input type="hidden" asp-for="DeleteEntityViewModel.ProfileImage" />
+	<section class="row">
+		<aside class="col-md-4">
+			<article class="card customer-image-container">
+				<div class="customer-image-section">
+					<img id="customer-image" src="@profileImage" class="img-thumbnail" />
+				</div> 
+			</article> 
+		</aside>
+		<aside class="col-md-8">
+			<div class="mt-2">
+				<label asp-for="DeleteEntityViewModel.FirstName"></label>
+				<input asp-for="DeleteEntityViewModel.FirstName" class="form-control" disabled="disabled" /> 
+			</div>
+			<div class="mt-2">
+				<label asp-for="DeleteEntityViewModel.LastName"></label>
+				<input asp-for="DeleteEntityViewModel.LastName" class="form-control" disabled="disabled" /> 
+			</div>
+			<div class="mt-2">
+				<label asp-for="DeleteEntityViewModel.NationalCode"></label>
+				<input asp-for="DeleteEntityViewModel.NationalCode" class="form-control" disabled="disabled" /> 
+			</div>
+			<div class="mt-2">
+				<label asp-for="DeleteEntityViewModel.PhoneNumber"></label>
+				<input asp-for="DeleteEntityViewModel.PhoneNumber" class="form-control" disabled="disabled" /> 
+			</div>
+		</aside>
+	</section>
+	<partial name="LinkView" model="@linkViewModel" />
+</form>
+@section scripts {
+	<script src="~/scripts/customer.script.js"></script>
+	<script>
+		$(function () {
+			let imageProfile = $('#profile-image').val(); 
+			if (imageProfile !== null) {
+				$('#customer-image').fadeIn(); 
+			}  
+		});
+	</script>
+}

@@ -1,0 +1,21 @@
+﻿.customer-image-container {
+	height: 20rem;
+}
+
+#customer-image {
+	display: none;
+	width: 100%;
+	height: 16rem;
+	object-fit: contain;
+}
+
+.customer-image-section {
+	height: 18rem;
+	display: block;
+}
+
+#input-file {
+	opacity: 0;
+}
+
+

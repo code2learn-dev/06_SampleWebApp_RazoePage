@@ -1,0 +1,19 @@
+﻿@model IEnumerable<MovieProjectViewModel>
+@{ 
+	string baseMovieImageCoverUri = TempData["BaseCoverImageUri"]?.ToString() ?? string.Empty;
+}
+
+@if (Model is not null && Model.Any())
+{
+	<p class="alert bg-primary text-white p-2">جدیدترین فیلم ها</p>
+	foreach (var movie in Model)
+	{
+		<section class="movie-aside-list">
+			<a asp-page="/Movies/Display" asp-route-id="@movie.Id" class="movie-aside-link">
+				<img src="@($"{baseMovieImageCoverUri}/{movie.ImageName}")" alt="@movie.Title" />
+				<h6>@movie.Title</h6>
+				<p>@movie.Score</p>
+			</a>
+		</section>
+	}
+}

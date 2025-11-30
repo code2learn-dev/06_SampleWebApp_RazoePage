@@ -1,0 +1,68 @@
+﻿@page "{id?}"
+@model _06_WebApp_RazoePage.RazorPage.Pages.Movies.DisplayModel
+@{
+	ViewBag.Title = "حذف فیلم";
+	ViewBag.CssTitle = "info";
+	LinkViewModel linkViewModel = new()
+	{ 
+		Caption = "لیست فیلم ها",
+		PageName = "/Index"
+	};
+
+	string imagePath = string.Empty;
+	if (TempData.ContainsKey("Image"))
+	{
+		imagePath = TempData.Peek("Image")?.ToString() ?? string.Empty;
+	}
+}
+@section styles {
+	<link href="~/css/jalalidatepicker.min.css" rel="stylesheet" />
+	<link href="~/css/movie.style.css" rel="stylesheet" />
+} 
+<section class="row">
+	<aside class="col-md-4">
+		<article class="card movie-image-container">
+			<div class="movie-image-section">
+				<img id="movie-image" src="@imagePath" class="img-thumbnail" />
+			</div>
+		</article>
+	</aside>
+	<aside class="col-md-8">
+		<div class="mt-3">
+			<label asp-for="DeleteEntityViewModel.GenreId"></label>
+			<select asp-for="DeleteEntityViewModel.GenreId" asp-items="@Model.DeleteEntityViewModel.GenreSelectList" class="form-select" disabled="disabled">
+				<option value="" selected="selected" disabled="disabled">انتخاب دسته فیلم</option>
+			</select>
+		</div>
+		<div class="mt-3">
+			<label asp-for="DeleteEntityViewModel.Title"></label>
+			<input asp-for="DeleteEntityViewModel.Title" class="form-control" disabled="disabled" />
+		</div>
+		<div class="mt-3">
+			<label asp-for="DeleteEntityViewModel.ScoreString"></label>
+			<input asp-for="DeleteEntityViewModel.ScoreString" class="form-control" disabled />
+		</div>
+		<div class="mt-3">
+			<label asp-for="DeleteEntityViewModel.Description"></label>
+			<textarea asp-for="DeleteEntityViewModel.Description" class="form-control" rows="5" disabled="disabled"></textarea>
+		</div>
+		<div class="mt-3">
+			<label asp-for="DeleteEntityViewModel.StartDateViewModel"></label>
+			<input asp-for="DeleteEntityViewModel.StartDateViewModel" class="form-control" data-jdp data-jdp-only-date disabled="disabled" />
+		</div>
+		<div class="mt-3">
+			<label asp-for="DeleteEntityViewModel.EndDateViewModel"></label>
+			<input asp-for="DeleteEntityViewModel.EndDateViewModel" class="form-control" data-jdp data-jdp-only-date disabled="disabled" />
+		</div>
+		<div class="mt-3 position-relative">
+			<label asp-for="DeleteEntityViewModel.TagsList"></label>
+			<input name="InputTagsList" class="form-control" id="input-tag" autocomplete="off" />
+			<div class="selected-tags-list"></div>
+			<div class="suggestion-tags-list"></div>
+		</div>
+		<partial name="LinkView" model="@linkViewModel" />
+	</aside>
+</section>
+@section scripts {
+	<script src="~/scripts/movie.script.js"></script>
+}

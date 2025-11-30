@@ -1,0 +1,21 @@
+﻿@page "{id?}"
+@model _06_WebApp_RazoePage.RazorPage.Pages.Genre.DeleteModel
+@{
+	ViewBag.Title = "حذف دسته بندی";
+	ViewBag.CssTitle = "danger";
+	LinkViewModel linkViewModel = new LinkViewModel()
+	{
+		ButtonCaption = "حذف",
+		Caption = "بازگشت",
+		PageName = "Index",
+		ButtonCssClass = "danger"
+	};
+}
+<form method="post">
+	<input asp-for="DeleteEntityViewModel.Id" type="hidden" />
+	<div class="mt-2">
+		<label asp-for="DeleteEntityViewModel.Title"></label>
+		<input asp-for="DeleteEntityViewModel.Title" class="form-control" disabled="disabled" /> 
+	</div>
+	<partial name="LinkView" model="@linkViewModel" />
+</form>

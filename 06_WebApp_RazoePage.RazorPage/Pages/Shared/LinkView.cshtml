@@ -1,0 +1,25 @@
+﻿@model LinkViewModel
+@if (Model is not null)
+{
+	<section class="card">
+		<article class="card-body text-start"> 
+			@if (!string.IsNullOrWhiteSpace(Model.ButtonCaption))
+			{
+				<button class="btn btn-@Model.ButtonCssClass" style="margin-left: .6rem;">@Model.ButtonCaption</button>
+			}
+			@if (!string.IsNullOrWhiteSpace(Model.Caption) &&
+				!string.IsNullOrWhiteSpace(Model.PageName))
+			{
+				if (!string.IsNullOrWhiteSpace(Model.HandlerName))
+				{
+					<a class="btn btn-warning" asp-page="@Model.PageName" asp-page-handler="@Model.HandlerName">@Model.Caption</a>
+				}
+				else  
+				{
+					<a class="btn btn-warning" asp-page="@Model.PageName">@Model.Caption</a>
+				}
+			}
+		</article>
+	</section>
+
+}

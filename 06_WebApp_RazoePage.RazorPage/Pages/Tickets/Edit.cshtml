@@ -1,0 +1,53 @@
+﻿@page "{id?}"
+@model _06_WebApp_RazoePage.RazorPage.Pages.Tickets.EditModel
+@{
+	ViewBag.Title = "ویرایش بلیت";
+	ViewBag.CssTitle = "success";
+	LinkViewModel linkViewModel = new LinkViewModel()
+	{
+		ButtonCaption = "ویرایش",
+		Caption = "لیست بلیت ها",
+		PageName = "Index"
+	};
+}
+@section styles {
+	<link href="~/css/jalalidatepicker.min.css" rel="stylesheet" />
+}
+<form method="post" id="register-form" class="register-form">
+	<input type="hidden" asp-for="CrudEntityViewModel.Id" />
+	<input type="hidden" asp-for="CrudEntityViewModel.CustomerId" />
+	<input type="hidden" asp-for="CrudEntityViewModel.MovieId" />
+	<div class="mt-3">
+		<label asp-for="CrudEntityViewModel.CustomerName"></label>
+		<input asp-for="CrudEntityViewModel.CustomerName" class="form-control" disabled="disabled" />
+	</div>
+	<div class="mt-3">
+		<label asp-for="CrudEntityViewModel.NationalCode"></label>
+		<input asp-for="CrudEntityViewModel.NationalCode" class="form-control" disabled="disabled" />
+	</div>
+	<div class="mt-3">
+		<label asp-for="CrudEntityViewModel.Title"></label>
+		<input asp-for="CrudEntityViewModel.Title" class="form-control" disabled="disabled" />
+	</div>
+	<div class="mt-3">
+		<label asp-for="CrudEntityViewModel.RegisterDate"></label>
+		<input asp-for="CrudEntityViewModel.RegisterDate" class="form-control" data-jdp data-jdp-only-date readonly="readonly" />
+		<span asp-validation-for="CrudEntityViewModel.RegisterDate" class="text-danger"></span>
+	</div>
+	<div class="mt-3">
+		<label asp-for="CrudEntityViewModel.ResevationDate"></label>
+		<input asp-for="CrudEntityViewModel.ResevationDate" class="form-control" data-jdp data-jdp-only-date readonly="readonly" />
+		<span asp-validation-for="CrudEntityViewModel.ResevationDate" class="text-danger"></span>
+	</div>
+	<partial name="LinkView" model="@linkViewModel" />
+</form>
+@section scripts {
+	<script src="~/scripts/jalalidatepicker.min.js"></script>
+	<script>
+		jalaliDatepicker.startWatch({
+			minDate: "attr",
+			maxDate: "attr",
+			time: true
+		});
+	</script>
+}

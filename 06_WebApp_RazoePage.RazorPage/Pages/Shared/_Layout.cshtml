@@ -1,0 +1,154 @@
+﻿@{ 
+	string activePage = Context.Items["ActivePage"]?.ToString() ?? "Default"; 
+}
+<!DOCTYPE html>
+
+<html dir="rtl" lang="fa">
+<head>
+	<meta name="viewport" content="width=device-width" />
+	<title>@ViewBag.Title</title>
+	<link href="~/css/bootstrap.min.css" rel="stylesheet" />
+	<link href="~/font/bootstrap-icons.min.css" rel="stylesheet" />
+	<style>
+		.navbar {
+			border: 1px solid #666;
+			border-radius: .4rem;
+			box-shadow: 0 0 2rem -.7rem #999;
+			margin: 2rem 0; 
+			background-color: Background;
+		}
+
+		.card {
+			border: 1px solid #777;
+			border-radius: .4rem;
+			box-shadow: 0 0 2rem -.7rem #999;
+			margin: 2rem 0;
+		}
+
+		#print-messages {
+			display: block;
+			position: fixed;
+			bottom: -2rem;
+			left: 3rem;
+			opacity: 0.0;
+			transition: .6s ease-in-out;
+			z-index: 10;
+		}
+
+			#print-messages p#alert-text {
+				font-size: 1rem;
+				padding: .7rem 1.2rem;
+			}
+
+				#print-messages p#alert-text > i {
+					margin-left: .5rem;
+				}
+
+		.input-validation-error {
+			outline: none;
+			border: 1px solid #f00 !important;
+			box-shadow: 0 0 2rem -.8rem #b21e1e !important;
+		}
+
+		.form-control:is(:focus, :active) {
+			outline: none;
+		}
+
+		.navbar-nav li a {
+			transition: .2s ease-in;
+			border-radius: .3rem;
+			margin: 0 .4rem;
+		}
+
+		.navbar-nav li a:hover {
+			background-color: #333;
+			color: #fff !important;
+			box-shadow: 0 0 1.4rem -.6rem #333;
+		}
+		.active {
+			background-color: #333;
+			color: #fff !important;
+			box-shadow: 0 0 1.4rem -.6rem #333;
+		}
+	</style>
+	@RenderSection("styles", false)
+</head>
+<body>
+	<header class="container">
+		<nav class="navbar navbar-expand-lg bg-body-tertiary">
+			<div class="container-fluid">
+				<a class="navbar-brand" href="#">code2learn</a>
+				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+				<div class="collapse navbar-collapse" id="navbarNav">
+					<ul class="navbar-nav">
+						<li class="nav-item">
+							<a class="nav-link @(activePage == "Default" ? "active" : "")" asp-page="/Default/Index">
+								<i class="bi bi-house-door-fill"></i>
+								صفحه اصلی
+							</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link @(activePage == "Genre" ? "active" : "")" asp-page="/Genre/Index">
+								<i class="bi bi-archive-fill"></i>
+								دسته بندی ها
+							</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link @(activePage == "Movies" ? "active" : "")" asp-page="/Movies/Index">
+								<i class="bi bi-film"></i>
+								لیست فیلم ها
+							</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link @(activePage == "Tags" ? "active" : "")" asp-page="/Tags/Index">
+								<i class="bi bi-tag-fill"></i>
+								لیست تگ ها
+							</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link @(activePage == "Tickets" ? "active" : "")" asp-page="/Tickets/Index">
+								<i class="bi bi-ticket-fill"></i>
+								لیست بلیت ها
+							</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link @(activePage == "Customer" ? "active" : "")" asp-page="/Customer/Index">
+								<i class="bi bi-people-fill"></i>
+								مدیریت مشتریان
+							</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</nav>
+	</header>
+	<main class="container">
+		<section class="card">
+			<article class="card-body">
+				<partial name="PrintMessages" />
+				<h6 class="card-title alert alert-@ViewBag.CssTitle">@ViewBag.Title</h6>
+				@RenderBody()
+			</article>
+		</section>
+	</main>
+	<script src="~/scripts/jquery.min.js"></script>
+	<script src="~/scripts/jquery-ui.min.js"></script>
+	<script src="~/scripts/jquery.validate.min.js"></script>
+	<script src="~/scripts/jquery.validate.unobtrusive.min.js"></script>
+	<script>
+		$(document).ready(function () {
+			setTimeout(() => $("#print-messages").css({
+				"bottom": "2rem",
+				"opacity": "1.0"
+			}), 400);
+			setTimeout(() => $("#print-messages").css({
+				"bottom": "-2rem",
+				"opacity": "0.0"
+			}), 4000);
+		});
+	</script>
+	@RenderSection("scripts", false)
+</body>
+</html>

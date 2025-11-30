@@ -1,0 +1,51 @@
+﻿@page
+@model _06_WebApp_RazoePage.RazorPage.Pages.Customer.IndexModel
+@{
+	ViewBag.Title = "لیست مشتریان";
+	ViewBag.CssTitle = "info";
+	LinkViewModel linkViewModel = new()
+	{
+		Caption = "ایجاد مشتری جدید",
+		PageName = "Add"
+	};
+}
+<table class="table table-striped table-bordered table-responsive">
+	<thead>
+		<tr>
+			<th>ردیف</th>
+			<th>نام</th>
+			<th>نام خانوادگی</th>
+			<th>شماره تماس</th>
+			<th>عملیات</th>
+		</tr>
+	</thead>
+	<tbody>
+		@if (Model.EntityViewModelList is not null &&
+								Model.EntityViewModelList.Any())
+		{
+			foreach (var category in Model.EntityViewModelList.Select(
+				(item, index) => new { item, index }))
+			{
+				<tr>
+					<td>@(category.index + 1)</td>
+					<td>@category.item.FirstName</td>
+					<td>@category.item.LastName</td>
+					<td>@category.item.PhoneNumber</td>
+					<td>
+						<a class="btn btn-success btn-sm" asp-route-id="@category.item.Id" asp-page="Edit">ویرایش</a>
+						<a class="btn btn-danger btn-sm" asp-route-id="@category.item.Id" asp-page="Delete">حذف</a>
+					</td>
+				</tr>
+			}
+		}
+		else
+		{
+			<tr>
+				<td colspan="5">
+					<p class="alert alert-warning text-center">مشتری یافت نشد</p>
+				</td>
+			</tr>
+		}
+	</tbody>
+</table>
+<partial name="LinkView" model="@linkViewModel" />
